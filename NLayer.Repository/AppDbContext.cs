@@ -25,8 +25,31 @@ namespace NLayer.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Assemblyde ki tüm interfaceleri bulsun ve yapsın.
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly .GetExecutingAssembly()); 
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly .GetExecutingAssembly());
             //tek bir tane tanımlama yapılacaksa
+            modelBuilder.Entity<ProductFeature>().HasData(
+                new ProductFeature() {
+                Id = 1,
+                Color = "Kırmızı",
+                Height = 20,
+                Width = 20,
+                ProductId = 1,
+
+
+            },
+                new ProductFeature()
+                {
+                    Id = 2,
+                    Color = "Yeşil",
+                    Height = 40,
+                    Width = 30,
+                    ProductId = 2,
+
+
+                }
+            );
+
+
           //  modelBuilder.ApplyConfiguration(new ProductConfiguration())
 
            
