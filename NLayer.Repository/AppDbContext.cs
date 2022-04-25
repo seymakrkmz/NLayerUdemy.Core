@@ -11,22 +11,24 @@ namespace NLayer.Repository
 {
     public class AppDbContext:DbContext
     {
+        //startupa db yolunu vermek için yazdık
         public AppDbContext(DbContextOptions<AppDbContext> options):base(options)   
         {
           //  var p =new Product() { ProductFeature=new ProductFeature() };   
 
         }
+        //her bir entitye karşılık dbset yazılır
         public DbSet <Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ProductFeature> ProductFeatures { get; set; }
 
-
+        //model oluşurken çalışacak method,entity ile ilgili ayarları yaparken
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Assemblyde ki tüm interfaceleri bulsun ve yapsın.
+            //Assemblyde ki tüm interfaceleri bulsun ve  kısıtlamaları (configure)yapsın.
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly .GetExecutingAssembly());
-            //tek bir tane tanımlama yapılacaksa
+            //tek bir tane tanımlama yapılacaksa configure yazmak yerine buraya da ekleyebiliriz
             modelBuilder.Entity<ProductFeature>().HasData(
                 new ProductFeature() {
                 Id = 1,

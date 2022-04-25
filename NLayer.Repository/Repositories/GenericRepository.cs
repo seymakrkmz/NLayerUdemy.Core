@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace NLayer.Repository.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class ServiceRepository<T> : IGenericRepository<T> where T : class
     {
+        //db ile işlem yapmak istediğimiz için appdbcontext tanımlıyoruz
+        //temel crud operasyonları hariç bir fonk tanımlamak istersem protected tanımlıyorum
         protected readonly AppDbContext _context;
+        //veritabanınmda ki tabloya karşılık geliyor, readonly  ya bu esnada ya da  conctructorda değer atayacağız  başka yerlerde set edilmesin diye
         private readonly DbSet<T>   _dbSet;
 
-        public GenericRepository(AppDbContext context)
+        public ServiceRepository(AppDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>(); 
@@ -37,6 +40,7 @@ namespace NLayer.Repository.Repositories
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> expression)
         {
+            //AsNoTracking ef core çekmiş olduğu dataları memorye almasın, performans açısından
             return _dbSet.AsNoTracking().AsQueryable(); 
         }
 

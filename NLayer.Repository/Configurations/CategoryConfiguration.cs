@@ -13,10 +13,10 @@ namespace NLayer.Repository.Configurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasKey(x => x.id);
-            builder.Property(x=>x.id).UseIdentityColumn();
+            builder.HasKey(x => x.id);//idsi key
+            builder.Property(x=>x.id).UseIdentityColumn();//otomatik artan
             builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
-            builder.ToTable("Categories");
+            builder.ToTable("Categories");//tablonun ismi değiştirmek istersek
         }
     }
 }
