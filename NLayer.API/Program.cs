@@ -6,6 +6,8 @@ using NLayer.Repository.UnitOfWorks;
 using NLayer.Core.Repositories;
 using NLayer.Repository.Repositories;
 using NLayer.Core.Services;
+using NLayer.Service.Services;
+using NLayer.Service.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(ServiceRepository<>));
-//builder.Services.AddScoped(typeof(IService<>), typeof(Services<>));
+builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+builder.Services.AddAutoMapper(typeof(MapProfile));
 
 builder.Services.AddDbContext<AppDbContext>(x =>
     {
